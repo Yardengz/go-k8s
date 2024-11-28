@@ -1,0 +1,5 @@
+apiVersion: v2
+name: hello-go
+description: A simple Go application
+version: 0.1.0
+appVersion: "1.0"
