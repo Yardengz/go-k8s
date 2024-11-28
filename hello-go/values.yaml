@@ -3,10 +3,10 @@ replicaCount: 1
 image:
   repository: yardengz/hello-go
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 service:
-  name: hello-go
+  name: go-app
   type: ClusterIP
   port: 8080
 
@@ -22,16 +22,3 @@ env:
   - name: APP_PORT
     value: "8080"
 
-livenessProbe:
-  httpGet:
-    path: /healthz
-    port: 8080
-  initialDelaySeconds: 30
-  periodSeconds: 5
-
-readinessProbe:
-  httpGet:
-    path: /readiness
-    port: 8080
-  initialDelaySeconds: 20
-  periodSeconds: 5

@@ -46,8 +46,7 @@ func main() {
 	r.Use(middleware.Recoverer)
 
 	// Health check routes for Kubernetes probes
-	r.Get("/healthz", livenessCheck)    // Liveness probe endpoint
-	r.Get("/readiness", readinessCheck) // Readiness probe endpoint
+	r.Get("/health", health) // Liveness probe endpoint
 
 	// Routes
 	r.Get("/animals", getAnimals)
@@ -60,16 +59,10 @@ func main() {
 }
 
 // Liveness check: This endpoint checks if the application is alive
-func livenessCheck(w http.ResponseWriter, r *http.Request) {
+func health(w http.ResponseWriter, r *http.Request) {
 	// You could add more checks here, e.g., if your DB or external service is reachable
+	w.Write([]byte("OK"))
 	w.WriteHeader(http.StatusOK) // Application is alive
-}
-
-// Readiness check: This endpoint checks if the application is ready to handle traffic
-func readinessCheck(w http.ResponseWriter, r *http.Request) {
-	// You could check whether your app is fully initialized, database is available, etc.
-	// For now, we'll assume the app is always ready once it's up
-	w.WriteHeader(http.StatusOK) // Application is ready to handle traffic
 }
 
 // Handlers

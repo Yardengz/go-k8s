@@ -1,10 +1,11 @@
 # Stage 1: Build the Go binary
-FROM golang:1.18 AS builder
+FROM golang:1.23 AS builder
 
 WORKDIR /app
 
 # Copy go.mod
 COPY go.mod ./
+COPY go.sum ./
 
 # Download dependencies
 RUN go mod tidy
